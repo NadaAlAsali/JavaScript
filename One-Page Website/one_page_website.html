@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Sky Themed Page</title>
+  <style>
+    /* Base styles */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #a1c4fd, #c2e9fb);
+      color: #fff;
+    }
+
+    header, section, footer {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 0;
+      z-index: 999;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 15px;
+      padding: 40px;
+      margin: 30px auto;
+      max-width: 900px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    img {
+      width: 100%;
+      max-width: 300px;
+      margin: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      max-width: 560px;
+      height: 315px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    input, textarea, button {
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #6dd5ed;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    footer {
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    /* Lightbox overlay */
+    .lightbox-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .lightbox-overlay img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox-overlay.active {
+      display: flex;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      font-size: 2em;
+      color: #fff;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#videos">Videos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header id="home" class="glass">
+    <h1>Welcome to My Website</h1>
+    <p>This is my beautiful one-page website with a dreamy, sky-themed effect.</p>
+  </header>
+
+  <section id="gallery" class="glass">
+    <h2>Image Gallery</h2>
+    <a href="https://cdn.pixabay.com/photo/2023/02/14/00/51/ice-7788590_1280.jpg" class="lightbox-trigger">
+      <img src="https://cdn.pixabay.com/photo/2023/02/14/00/51/ice-7788590_1280.jpg" alt="Sky 1" />
+    </a>
+    <a href="https://cdn.pixabay.com/photo/2023/02/14/00/51/ice-7788590_1280.jpg" class="lightbox-trigger">
+      <img src="https://cdn.pixabay.com/photo/2023/02/14/00/51/ice-7788590_1280.jpg" alt="Sky 2" />
+    </a>
+    <a href="https://cdn.pixabay.com/photo/2023/02/14/00/51/ice-7788590_1280.jpg" class="lightbox-trigger">
+      <img src="https://cdn.pixabay.com/photo/2023/02/14/00/51/ice-7788590_1280.jpg" alt="Sky 3" />
+    </a>
+  </section>
+
+  <section id="videos" class="glass">
+    <h2>Watch This Video</h2>
+    <iframe src="https://www.youtube.com/embed/lW9pcyo3kIw?si=vcgCdZfVtdDH1OmL" title="YouTube video player" allowfullscreen></iframe>
+  </section>
+
+  <section id="contact" class="glass">
+    <h2>Contact Me</h2>
+    <form>
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 My Sky Website. All rights reserved.</p>
+  </footer>
+
+  <!-- Lightbox HTML injected by JS -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const lightbox = document.createElement('div');
+      lightbox.className = 'lightbox-overlay';
+      lightbox.innerHTML = `
+        <span class="lightbox-close">&times;</span>
+        <img src="" alt="Enlarged image" />
+      `;
+      document.body.appendChild(lightbox);
+
+      const overlayImg = lightbox.querySelector('img');
+      const closeBtn = lightbox.querySelector('.lightbox-close');
+
+      document.querySelectorAll('.lightbox-trigger').forEach(link => {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          const imgSrc = this.getAttribute('href');
+          overlayImg.src = imgSrc;
+          lightbox.classList.add('active');
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        lightbox.classList.remove('active');
+      });
+
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === overlayImg) {
+          lightbox.classList.remove('active');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          lightbox.classList.remove('active');
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
